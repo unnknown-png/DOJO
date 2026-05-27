@@ -72,5 +72,8 @@
       <ProjectReference Include="..\DAL\DAL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="Models/* 2.cs" />
+    </ItemGroup>
 
 </Project>

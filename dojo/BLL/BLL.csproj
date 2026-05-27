@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <!-- Multi-targeting: net9.0 для тестів, MacCatalyst для застосунку -->
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('OSX'))">net9.0;net9.0-maccatalyst18.0</TargetFrameworks>
-        <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('OSX'))">net9.0</TargetFrameworks>
+        <!-- Бібліотека: один таргет net9.0, без MacCatalyst -->
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,5 +15,9 @@
       <ProjectReference Include="..\DAL\DAL.csproj" />
     </ItemGroup>
 
-</Project>
+    <ItemGroup>
+        <Compile Remove="Interfaces/* 2.cs" />
+        <Compile Remove="Services/* 2.cs" />
+    </ItemGroup>
 
+</Project>
