@@ -1,94 +1,142 @@
-# DOJO
+# DOJO (Daily Objectives Journey On) 🚀
 
-**DOJO (Daily Objectives Journey On)** — інноваційний десктопний додаток, який поєднує функціональність планера з елементами гейміфікації.  
-Він створений для підвищення продуктивності, мотивації та ефективного управління часом.  
+A cross-platform productivity app that combines planning, time management, and gamification. DOJO helps users plan goals and tasks, track progress, and stay motivated through levels and rewards.
 
-DOJO допомагає планувати завдання, аналізувати ефективність, формувати корисні звички та перетворювати рутинну роботу на захоплюючу гру.
+This repository contains a .NET MAUI desktop app with a clean 3-layer architecture (Presentation, BLL, DAL) and a PostgreSQL database.
 
----
+## Highlights ✨
 
-## 📖 Опис
+- Goal planning with start and end times, priority, and progress tracking.
+- Task management with priorities, completion tracking, and attachments.
+- Pomodoro sessions with short and long break cycles.
+- Gamification layer with XP, levels, and streak tracking.
+- Productivity and statistics dashboards.
+- Local session persistence (SecureStorage with Preferences fallback).
 
-”DOJO” — це гібрид планера з гейміфікацією, орієнтований на людей, які прагнуть структурувати свій день і залишатися мотивованими завдяки ігровим механікам.  
-Ваш головний мотиватор у грі — **свинка-герой**, яка розвивається разом із вашими досягненнями.  
+## Architecture 🧱
 
-Додаток кросплатформенний: **Windows, macOS, Linux**.
+DOJO is organized into three layers:
 
----
+- Presentation (Presentation): .NET MAUI UI, MVVM ViewModels, Shell navigation, and DI setup.
+- BLL (BLL): business logic services (users, tasks, goals, pomodoro, experience, sessions).
+- DAL (DAL): EF Core DbContext and entity models for PostgreSQL.
 
-## ✨ Основні можливості
+Key entry points:
 
-- **Аналіз продуктивності**: звіти про виконані завдання та витрачений час.  
-- **Свинка-герой**: прогрес і розвиток персонажа разом із вашими досягненнями.  
-- **Поділ завдань**: великі задачі можна дробити на менші.  
-- **Приєднання файлів**: збереження нотаток, документів чи ресурсів у задачах.  
-- **Таймер Помодоро**: допомагає підтримувати фокус і баланс роботи/відпочинку.  
-- **Персоналізація**: теми, налаштування, адаптація під власні потреби.  
-- **Мотивація через гру**: винагороди, досягнення, прогрес.  
+- `dojo/Presentation/MauiProgram.cs` registers DI services, DbContext, and Serilog logging.
+- `dojo/DAL/DojoDbContext.cs` maps entities to database tables and applies conventions.
 
----
+## Tech Stack 🛠️
 
-## 🎯 Цільова аудиторія
+- .NET MAUI (UI)
+- C# / MVVM
+- Entity Framework Core
+- PostgreSQL
+- Serilog (file and debug logging)
+- xUnit, Moq, FluentAssertions (tests)
 
-- **Студенти**: навчання, підготовка до іспитів.  
-- **Професіонали**: робочі завдання та проєкти.  
-- **Ті, хто займається саморозвитком**: спорт, читання, звички.  
-- **Користувачі, яким важлива мотивація через гру**.  
+## Data Model (Core Entities) 🧩
 
----
+- User: email, password hash, XP, level, streaks, created date
+- Goal: time range, progress, priority, completion state
+- ToDoTask: task description, due date, priority, completion state
+- Pomodoro: user session logs, duration, work cycles
+- Attachment: file metadata linked to tasks or goals
 
-## 🛠️ Технології
+Relationships are defined in `dojo/DAL/DojoDbContext.cs`.
 
-- **.NET MAUI** — кросплатформений фреймворк для створення десктопних та мобільних застосунків.  
-- **Entity Framework Core (EF Core)** — ORM (Object-Relational Mapping), що спрощує роботу з базою даних, дозволяючи працювати з обʼєктами замість SQL-запитів.  
-- **PostgreSQL** — реляційна база даних для зберігання даних користувачів.  
-- **Git та GitHub** — для командної роботи та контролю версій.  
-- **GitHub Projects** — інструмент для управління завданнями у форматі Kanban-дошки (*Planned / InProgress / ReadyForReview / Done*).  
-- **Figma** — для проєктування UI/UX макетів застосунку, створення прототипів та узгодження дизайну.  
+## Project Structure 🗂️
 
----
+```
+DOJO/
+  DB/                      Database SQL scripts
+  Documents/               Requirements, diagrams, and wireframes
+  dojo/
+    Presentation/          MAUI UI (Views, ViewModels, resources)
+    BLL/                   Business logic services
+    DAL/                   EF Core models and DbContext
+    BLL.Tests/             Unit tests for business logic
+    DAL.Tests/             Unit tests for data layer
+```
 
-## 👥 Команда
+## Documentation 📚
 
-- **Владислав Ковальчук** — Backend-developer, **Project Manager**  
-- **Чвартковська Соломія** — Frontend-developer, UI/UX дизайн  
-- **Манько Марія** — Frontend-developer  
-- **Джавала Анна** — Backend-developer  
-- **Кахновець Андрій** — Backend-developer  
+Project documents and diagrams are available in the `Documents/` folder:
 
----
+- `Documents/DOJO.pdf` - full project documentation
+- `Documents/Description/functional_req.pdf`
+- `Documents/Description/non_functional_req.pdf`
+- `Documents/Data_Base/dataBase_description.pdf`
+- `Documents/Data_Base/ER_diagram.png`
+- `Documents/Data_Base/UML_diagram.png`
+- `Documents/Usecase/Student_usecase.png`
+- `Documents/Usecase/Proff_usecase.png`
+- `Documents/Usecase/Own_usecase.png`
+- `Documents/Usecase/Roles.pdf`
+- `Documents/Wireframe/Wireframes.pdf`
 
-## 📚 Документація
+## Getting Started 🧭
 
-У директорії `Documents` зібрано всю необхідну проєктну документацію:
+### Prerequisites ✅
 
-### 📄 Основні документи
-- **DOJO.pdf** — повна документація проєкту
+- .NET SDK 9.x (pinned by `dojo/global.json`)
+- .NET MAUI workload (`dotnet workload install maui`)
+- PostgreSQL (local or remote)
+- Xcode (macOS only, required for MacCatalyst builds)
 
-### 📋 Опис вимог (`Description`)
-- **functional_req.docx** — функціональні вимоги до застосунку
-- **non_functional_req.docx** — нефункціональні вимоги (продуктивність, безпека, масштабованість)
+### Database Setup 🗄️
 
-### 🎭 Сценарії використання (`Usecase`)
-- **Student_usecase.png** — діаграма використання для студентів
-- **Proff_usecase.png** — діаграма використання для професіоналів
-- **Own_usecase.png** — діаграма використання для користувачів саморозвитку
-- **Roles.docx** — детальний опис ролей та акторів системи
+Create a PostgreSQL database and apply the script:
 
-### 🎨 Прототипи інтерфейсу (`Wireframe`)
-- **Wireframes.pdf** — вайрфрейми та макети всіх екранів застосунку
+```
+DB/dojo.sql
+```
 
----
+### Configuration ⚙️
 
-## 🚀 Встановлення та запуск
+The app currently uses a connection string in `dojo/Presentation/MauiProgram.cs`:
 
-Клонуйте репозиторій:
-   ```bash
-   git clone https://github.com/yourusername/DOJO.git
-   cd DOJO
-   ```
+```
+Host=localhost;Database=dojo;Username=postgres;Password=YOUR_PASSWORD
+```
 
-✅ Готово!
----
+Update it to match your local database. For production, move secrets into user secrets or environment variables.
 
-✨ Дякуємо за інтерес до **DOJO**! Разом ми зробимо продуктивність веселою. 🐷🌟
+### Build 🏗️
+
+```bash
+dotnet restore
+dotnet build dojo/dojo.sln
+```
+
+### Run (macOS, MacCatalyst) 🍎
+
+```bash
+dotnet build -t:Run -f net9.0-maccatalyst18.0 dojo/Presentation/Presentation.csproj
+```
+
+### Run (Windows) 🪟
+
+```bash
+dotnet build -t:Run -f net9.0-windows10.0.19041.0 dojo/Presentation/Presentation.csproj
+```
+
+### Tests 🧪
+
+```bash
+dotnet test dojo/BLL.Tests/BLL.Tests.csproj
+dotnet test dojo/DAL.Tests/DAL.Tests.csproj
+```
+
+## Logging 🧾
+
+Serilog writes logs to an app data folder (DojoLogs) and to the debug output. See `dojo/Presentation/MauiProgram.cs` for configuration details.
+
+## Team 👥
+
+- Vladyslav Kovalchuk - Frontend Developer, Project Manager
+- Solomiia Chvartkovska - Frontend Developer, UI/UX Design
+- Anna Dzhavala - Backend Developer
+- Andrii Kakhnovets - Backend Developer
+
+## Developed with .NET MAUI and PostgreSQL by the DOJO Team
